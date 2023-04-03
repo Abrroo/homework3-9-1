@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <numeric>
 
 class Fraction
 {
@@ -22,20 +23,28 @@ public:
 	bool operator<=(Fraction other) { return !(multiplyFirstCross(other) > multiplySecondCross(other)); }
 	bool operator>=(Fraction other) { return !(multiplyFirstCross(other) < multiplySecondCross(other)); }
 
+	Fraction divided()
+	{
+		int divisor = std::gcd(numerator_,denominator_);
+		numerator_ = numerator_ / divisor;
+		denominator_ = denominator_ / divisor;
+		return *this;
+	}
+
 
 };
 
 int main()
 {
-	Fraction f1(5, 3);
-	Fraction f2(4, 3);
+	Fraction f1(4, 3);
+	Fraction f2(8, 6);
 
-	std::cout << "f1" << ((f1 == f2) ? " == " : " not == ") << "f2" << '\n';
-	std::cout << "f1" << ((f1 != f2) ? " != " : " not != ") << "f2" << '\n';
-	std::cout << "f1" << ((f1 < f2) ? " < " : " not < ") << "f2" << '\n';
-	std::cout << "f1" << ((f1 > f2) ? " > " : " not > ") << "f2" << '\n';
-	std::cout << "f1" << ((f1 <= f2) ? " <= " : " not <= ") << "f2" << '\n';
-	std::cout << "f1" << ((f1 >= f2) ? " >= " : " not >= ") << "f2" << '\n';
+	std::cout << "f1" << ((f1.divided() == f2.divided()) ? " == " : " not == ") << "f2" << '\n';
+	std::cout << "f1" << ((f1.divided() != f2.divided()) ? " != " : " not != ") << "f2" << '\n';
+	std::cout << "f1" << ((f1.divided() < f2.divided()) ? " < " : " not < ") << "f2" << '\n';
+	std::cout << "f1" << ((f1.divided() > f2.divided()) ? " > " : " not > ") << "f2" << '\n';
+	std::cout << "f1" << ((f1.divided() <= f2.divided()) ? " <= " : " not <= ") << "f2" << '\n';
+	std::cout << "f1" << ((f1.divided() >= f2.divided()) ? " >= " : " not >= ") << "f2" << '\n';
 	
 	return 0;
 }
